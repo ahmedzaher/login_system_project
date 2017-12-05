@@ -3,6 +3,7 @@ to run
   2- open the terminal and change directory to ...../login_system_project (the outer )
   3- type manage.py runserver
   4- now the project is running on http://localhost:8000/login_system
+  5- login using email: ahmedzaher54@gmail.com  /  password: test12345
  
 to add users to database for testing
   1- go to http://localhost:8000/admin

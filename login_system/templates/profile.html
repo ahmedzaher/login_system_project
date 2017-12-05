@@ -1,0 +1,67 @@
+<html>
+
+<head>
+    {% load static %}
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    Email :
+    <label> {{ useremail }} </label>
+    <br>
+    <br>
+    <form id="formChangeName">
+        {% csrf_token %} Name :
+        <input type="text" name="txtName" value="{{ username }}">
+        <label id="lblChngNameMsg" style="color: #0f0"></label>
+        <br>
+        <input type="submit" value="Change Name">
+    </form>
+    <form id="formChangePassword">
+        {% csrf_token %} Password :
+        <input type="password" name="txtPassword">
+        <br> New Password :
+        <input type="password" name="txtNewPassword">
+        <br> Confirm Password :
+        <input type="password" name="txtConfirmPassword">
+        <br>
+        <input type="submit" value="Change Password">
+        <label id="lblErrorPwChange" style="color: #f00"></label>
+        <label id="lblSuccessPwChange" style="color: #0f0"></label>
+    </form>
+
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script> 
+        $("#formChangeName").submit(function (e) {
+            $.post("changeName", $(this).serialize(),
+                function (data, status) {
+                    // case of error 
+                    if (data["message_error"] != "") {
+                        $("#lblChngNameMsg").text("Name Changed")
+                        // case of no error
+                    } else {
+                        location.href = "/login_system/successLogin/"
+                    }
+                });
+            e.preventDefault();
+        });
+        $("#formChangePassword").submit(function (e) {
+            $.post("changePassword", $(this).serialize(),
+                function (data, status) {
+                    // case of error 
+                    if (data["message_error"] != "") {
+                        $("#lblErrorPwChange").text(data["message_error"])
+                        $("#lblSuccessPwChange").text("")
+                        // case of no error
+                    } else {
+                        $("#lblSuccessPwChange").text("Password Changed")
+                        $("#lblErrorPwChange").text("")
+                    }
+                });
+            e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>

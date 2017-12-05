@@ -1,0 +1,65 @@
+<head>
+        
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places&key={{ google_key }}"></script>
+        
+        </head>
+        <body>
+        <h3>Calculate Distance And Time Using Google Maps API</h3>
+        Address 1 : <input id="input1Entry" type="text" size="50"> <br><br>
+        Address 2 : <input id="input2Entry" type="text" size="50"> <br><br>
+        <button id="btnCalcDistance" onclick="calcDistance()"> Calculate Distance </button>
+        <br><br><br>
+        Driving Distance : <label id="lblDistance"></label>
+        <br>
+        Estimated Driving Time : <label id="lblTime"></label>
+        <script>  
+            var place1 = {}; 
+            var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById("input1Entry"));
+            autocomplete1.addListener('place_changed', function() {
+                p = autocomplete1.getPlace();
+                place1.lat = p["geometry"]["location"]["lat"]();
+                place1.lng = p["geometry"]["location"]["lng"]();  
+            });
+             
+            var place2 = {}; 
+            var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById("input2Entry"));
+            autocomplete2.addListener('place_changed', function() {
+                p = autocomplete2.getPlace();
+                place2.lat = p["geometry"]["location"]["lat"]();
+                place2.lng = p["geometry"]["location"]["lng"]();  
+            }); 
+            
+            function calcDistance(){
+                var origin = place1.lat + "," + place1.lng 
+                var destination = place2.lat + "," + place2.lng 
+                service = new google.maps.DistanceMatrixService();
+                service.getDistanceMatrix(
+                     {
+                         origins: [origin],
+                         destinations: [destination],
+                         travelMode: google.maps.TravelMode.DRIVING,
+                         avoidHighways: false,
+                         avoidTolls: false
+                     }, 
+                     callback
+                 );
+                 function callback(response, status) { 
+                     console.log(status) 
+                     console.log(response)
+                     if(status=="OK") {
+                         if(response.rows[0].elements[0].status != "OK") {
+                          //  alert ("Cannot calulate.  status: "+ response.rows[0].elements[0].status)
+                         }                        
+                        else {
+                            document.getElementById("lblDistance").innerHTML  = response.rows[0].elements[0].distance.text;
+                            document.getElementById("lblTime").innerHTML  = response.rows[0].elements[0].duration.text;
+                        }
+                     } else {
+                         alert("Error: " + status);
+                     }
+                 }
+            }
+            calcBtn = document.getElementById("input1Entry")
+            calcBtn.onclick = calcDistance()
+        </script>
+        </body>

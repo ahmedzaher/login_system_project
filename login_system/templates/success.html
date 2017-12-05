@@ -1,0 +1,33 @@
+<html>
+
+<head>
+
+    {% load static %}
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Welcome {{ username}}</h2>
+        <a href="/login_system/profilePage">Profile Page</a>
+        <br>
+        <a href="/login_system/uploadFilePage">Upload File -Not Working-</a>
+        <br>
+        <a href="/login_system/serverAndBrowserInfo">Server And Browser Info</a>
+        <br>
+        <a href="/login_system/calcDistance">Calculate Distance Application</a>
+        <br>
+        <br>
+        <br>
+        <a href="/login_system/logout">Log out</a>
+        <br>
+    </div>
+
+
+
+</body>
+
+</html>

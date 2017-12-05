@@ -1,0 +1,25 @@
+body .container{
+    margin-top: 15px;
+}
+h2 { 
+    color: rgb(81, 120, 172)
+}
+h5 , h3{
+    color: #148fa1;
+    margin-bottom: 17px;
+    margin-top: 33px;
+}
+.choice  {
+    font-family: 'Calibri';
+    font-size: 21px;
+    color:#1bb2bf;
+    cursor: pointer;
+}
+label.form-control {
+    border: none
+}
+.btn-vote {
+    font-size: 1.3em;
+    width: 5em;
+    cursor: pointer;
+}
